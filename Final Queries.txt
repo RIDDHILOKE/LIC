@@ -1,0 +1,370 @@
+Queries
+
+
+1. List Beneficiaries and Their Relationship for a Specific Policyholder:
+
+   
+  SET LINESIZE 200
+SET PAGESIZE 100
+
+COLUMN Policyholder_FirstName FORMAT A20
+COLUMN Policyholder_LastName FORMAT A20
+COLUMN Beneficiaryy_FirstName FORMAT A20
+COLUMN Beneficiaryy_LastName FORMAT A20
+COLUMN RelationshipToPolicyholder FORMAT A20
+
+SELECT
+    ph.FirstName AS Policyholder_FirstName,
+    ph.LastName AS Policyholder_LastName,
+    b.FirstName AS Beneficiaryy_FirstName,
+    b.LastName AS Beneficiaryy_LastName,
+    b.RelationshipToPolicyholder
+FROM
+    Policyholder ph
+INNER JOIN
+    Beneficiaryy b ON ph.PolicyholderID = b.PolicyholderID
+WHERE
+    ph.PolicyholderID = 184;
+
+   
+
+   This query retrieves the beneficiaries and their relationships for a specific policyholder.
+
+
+1. Query 1: Find Beneficiaries for a Policyholder
+   - Query: "List the beneficiaries and their relationships for a specific policyholder, given the PolicyholderID."
+   - Explanation: This query helps identify who will receive the benefits in the event of a claim for a specific policyholder.
+
+
+
+
+
+
+
+
+
+
+
+
+2. Policy with Highest Premium
+   
+SELECT *
+FROM (
+    SELECT *
+    FROM Policy
+    ORDER BY PremiumAmount DESC
+)
+WHERE ROWNUM = 1;
+
+
+
+2. Query 2: Policy with Highest Premium
+   - Query: "Find the policy with the highest premium amount and display its details."
+   - Explanation: This query identifies the most expensive policy in terms of premium.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3. Find the Policy with the Highest Premium Amount:
+
+   
+  SELECT *
+FROM (
+    SELECT
+        PolicyNumber,
+        PolicyType,
+        PremiumAmount
+    FROM
+        Policy
+    ORDER BY
+        PremiumAmount DESC
+)
+WHERE ROWNUM = 1;
+
+   
+
+   This query retrieves the policy with the highest premium amount.
+
+
+3. Query 3: Beneficiary Share Calculation
+   - Query: "Calculate the total percentage share assigned to beneficiaries for a specific policy."
+   - Explanation: This query helps determine the total beneficiary share for a particular policy.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4. Calculate the Total Payments Received for a Specific Policy:
+
+    
+    SELECT
+        p.PolicyNumber,
+        p.PolicyType,
+        SUM(pm.PaymentAmount) AS Total_Payments_Received
+    FROM
+        Policy p
+    LEFT JOIN
+        Payment pm ON p.PolicyNumber = pm.PolicyNumber
+    WHERE
+        p.PolicyNumber = 1; -- Replace with the desired PolicyNumber
+    
+
+    This query calculates the total payments received for a specific policy.
+
+
+4. Query 4: Payment History for a Policy
+    - Query: "Retrieve the payment history (dates and amounts) for a specific policy using its PolicyNumber."
+    - Explanation: This query provides a detailed payment history for a specific policy, which can be useful for tracking payments.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5. Retrieve Policyholders and their Policy Details:
+   
+   SELECT
+       P.FirstName,
+       P.LastName,
+       P.DateOfBirth,
+       P.Email,
+       Po.PolicyNumber,
+       Po.PolicyType,
+       Po.PolicyStartDate,
+       Po.PolicyEndDate
+   FROM
+       Policyholder AS P
+   INNER JOIN
+       Policy AS Po ON P.PolicyholderID = Po.PolicyholderID;
+   
+   Explanation: This query retrieves a list of policyholders along with their policy details, including policy number, type, start date, and end date.
+
+
+
+5. Query: Retrieve Policyholders and their Policy Details.
+   - Question: Can you provide a list of policyholders and their respective policies, including policy numbers, types, start dates, and end dates?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+6. List Policies with Premium Amount Greater Than a Threshold:
+   
+   SELECT
+       PolicyNumber,
+       PolicyType,
+       PremiumAmount
+   FROM
+       Policy
+   WHERE
+       PremiumAmount > 5000.00;
+   
+   Explanation: This query retrieves policies with a premium amount greater than 5000.00.
+
+
+
+6. Query: Retrieve Policyholders and their Policy Details.
+   - Question: Can you provide a list of policyholders and their respective policies, including policy numbers, types, start dates, and end dates?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+7. 	:
+   
+   SELECT
+       FirstName,
+       LastName,
+       City
+   FROM
+       Policyholder AS P
+   INNER JOIN
+       PolicyholderAddress AS PA ON P.PolicyholderID = PA.PolicyholderID
+   WHERE
+       City = 'Mumbai';
+   
+   Explanation: This query retrieves policyholders who live in the city of Mumbai.
+
+
+7. Query: List Policyholders in a Specific City.
+   - Question: Provide a list of policyholders who reside in Mumbai, including their names, addresses, and the city they live in.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+8. Retrieve Policyholders with Age Greater Than 35:
+    
+    SELECT
+        FirstName,
+        LastName,
+        Age
+    FROM
+        Policyholder
+    WHERE
+        CAST(Age AS INT) > 35;
+    
+    Explanation: This query retrieves policyholders whose age is greater than 35 years (casting the Age column to an integer for comparison).
+
+These queries can help an LIC company manage its policies, track payments, and gain insights into their policyholders and agents.
+
+
+8. Query: Retrieve Policyholders with Age Greater Than 35.
+    - Question: Could you give me a list of policyholders whose age exceeds 35 years?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+9. Calculate Total Premium Collection
+   
+   SELECT SUM(PremiumAmount) AS TotalPremium
+   FROM Policy;
+
+
+
+9. Query 9: Calculate Total Premium Collection
+   - Question: "What is the total premium amount that LIC has collected for all its policies?"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+10. Find Policies with Expiry Date Within a Year:
+   sql
+   SELECT
+       PolicyNumber,
+       PolicyType,
+       PolicyEndDate
+   FROM
+       Policy
+   WHERE
+       PolicyEndDate BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 1 YEAR);
+   
+   Explanation: This query identifies policies that are set to expire within the next year.
+
+
+
+10. Query: Find Policies with Expiry Date Within a Year.
+   - Question: Can you identify policies that are set to expire within the next year?
+
+
+
+
+
+
+
+

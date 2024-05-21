@@ -1,0 +1,129 @@
+1.	Policyholder owns Policy
+
+CREATE TABLE Owns (
+    PolicyholderID INT,
+    PolicyNumber INT,
+    FOREIGN KEY (PolicyholderID) REFERENCES Policyholder(PolicyholderID),
+    FOREIGN KEY (PolicyNumber) REFERENCES Policy(PolicyNumber)
+);
+
+
+
+2.	Agent sells Policy
+
+CREATE TABLE sells (
+    AgentID INT,
+    PolicyNumber INT,
+    FOREIGN KEY (AgentID) REFERENCES Agent(AgentID),
+    FOREIGN KEY (PolicyNumber) REFERENCES Policy(PolicyNumber)
+);
+
+
+
+
+3.	Policy has Beneficiaries
+
+CREATE TABLE has (
+    BeneficiaryID INT,
+    PolicyNumber INT,
+    FOREIGN KEY (BeneficiaryID) REFERENCES Beneficiary(BeneficiaryID),
+    FOREIGN KEY (PolicyNumber) REFERENCES Policy(PolicyNumber)
+);
+
+
+
+
+
+
+4.	Policyholder makes Payment:
+
+CREATE TABLE Makes (
+    PolicyholderID INT,
+    PaymentID INT,
+    FOREIGN KEY (PolicyholderID) REFERENCES Policyholder(PolicyholderID),
+    FOREIGN KEY (PaymentID) REFERENCES Payment(PaymentID)
+);
+
+
+
+
+
+
+
+
+
+
+
+-- SELLS TABLE
+
+INSERT INTO sells VALUES(1451, 88761);
+INSERT INTO sells VALUES(1452, 88762);
+INSERT INTO sells VALUES(1453, 88763);
+INSERT INTO sells VALUES(1454, 88764);
+INSERT INTO sells VALUES(1455, 88765);
+INSERT INTO sells VALUES(1456, 88766);
+INSERT INTO sells VALUES(1457, 88767);
+INSERT INTO sells VALUES(1458, 88768);
+INSERT INTO sells VALUES(1459, 88769);
+INSERT INTO sells VALUES(1460, 88770);
+
+
+
+-- HAS TABLE
+
+INSERT INTO has VALUES      (8841, 88761);
+INSERT INTO has VALUES      (8842, 88762);
+INSERT INTO has VALUES      (8843, 88763);
+INSERT INTO has VALUES      (8844, 88764);
+INSERT INTO has VALUES      (8845, 88765);
+INSERT INTO has VALUES      (8846, 88766);
+INSERT INTO has VALUES      (8847, 88767);
+INSERT INTO has VALUES      (8848, 88768);
+INSERT INTO has VALUES      (8848, 88769);
+INSERT INTO has VALUES      (8850, 88770);
+
+
+
+-- OWNS TABLE
+
+INSERT INTO owns VALUES       (181, 88761);
+INSERT INTO owns VALUES       (182, 88762);
+INSERT INTO owns VALUES       (183, 88763);
+INSERT INTO owns VALUES       (184, 88764);
+INSERT INTO owns VALUES       (185, 88765);
+INSERT INTO owns VALUES       (186, 88766);
+INSERT INTO owns VALUES       (187, 88767);
+INSERT INTO owns VALUES       (188, 88768);
+INSERT INTO owns VALUES       (189, 88769);
+INSERT INTO owns VALUES       (190, 88770);
+
+
+
+-- MAKES TABLE
+
+INSERT INTO makes VALUES       (181, 1);
+INSERT INTO makes VALUES       (182, 2);
+INSERT INTO makes VALUES       (183, 3);
+INSERT INTO makes VALUES       (184, 4);
+INSERT INTO makes VALUES       (185, 5);
+INSERT INTO makes VALUES       (186, 6);
+INSERT INTO makes VALUES       (187, 7);
+INSERT INTO makes VALUES       (188, 8);
+INSERT INTO makes VALUES       (189, 9);
+INSERT INTO makes VALUES       (190, 10);
+
+
+SELECT * FROM Owns;
+
+SELECT * FROM Sells;
+
+SELECT * FROM Has;
+
+SELECT * FROM Makes;
+
+
+
+
+
+
+

@@ -1,0 +1,65 @@
+Trigger for an LIC (Life Insurance Corporation) company could be to automatically generate a new policy number when a new policy is inserted into the "Policy" table. This trigger will ensure that each policy is assigned a unique policy number.
+
+
+-- Create a trigger to generate a new policy number
+
+CREATE OR REPLACE TRIGGER GeneratePolicyNumber
+BEFORE INSERT ON Policy
+FOR EACH ROW
+BEGIN
+    SELECT MAX(PolicyNumber) + 1 INTO :NEW.PolicyNumber FROM Policy;
+    IF :NEW.PolicyNumber IS NULL THEN
+        :NEW.PolicyNumber := 1;
+    END IF;
+END;
+/
+
+
+Explanation:
+- This trigger is named "GeneratePolicyNumber."
+- It is set to fire before an INSERT operation on the "Policy" table.
+- For each new row being inserted, it calculates the next policy number by finding the maximum policy number in the table and adding 1 to it.
+- If there are no existing policies, it sets the policy number to 1 as the initial policy number.
+
+
+Question: How can we ensure that each new policy inserted into the "Policy" table is automatically assigned a unique policy number, taking into account the existing policies?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CREATE SEQUENCE PolicySeq
+  START WITH 88761
+  INCREMENT BY 1
+  NOCACHE
+  NOCYCLE;
+
+
+
+
+CREATE OR REPLACE TRIGGER GeneratePolicyNumber
+BEFORE INSERT ON Policy
+FOR EACH ROW
+BEGIN
+    :NEW.PolicyNumber := PolicySeq.NEXTVAL;
+END;
+/
+SELECT * FROM SYSTEM_ERRORS WHERE NAME = 'GeneratePolicyNumber';
+
+

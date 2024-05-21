@@ -1,0 +1,57 @@
+This procedure calculates the total coverage amount for a specific policy type and provides a summary of the policies and policyholders for that type. This can help the company analyze the coverage amount and policyholder details for a particular insurance product.
+
+
+
+CREATE OR REPLACE PROCEDURE GetPolicyTypeSummary (
+    p_PolicyType VARCHAR2
+)
+AS
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Policy Type: ' || p_PolicyType);
+    
+    -- Calculate the total coverage amount for the given policy type
+    DECLARE
+        v_TotalCoverageAmount DECIMAL(12, 2) := 0;
+    BEGIN
+        SELECT SUM(CoverageAmount) INTO v_TotalCoverageAmount
+        FROM Policy
+        WHERE PolicyType = p_PolicyType;
+
+        DBMS_OUTPUT.PUT_LINE('Total Coverage Amount: ' || v_TotalCoverageAmount);
+    END;
+    
+    -- Get the policyholders and their details for the given policy type
+    FOR policyholder_row IN (
+        SELECT ph.PolicyholderID, ph.FirstName, ph.LastName, ph.DateOfBirth, ph.Email, ph.Phone
+        FROM Policyholder ph
+        JOIN Policy po ON ph.PolicyholderID = po.PolicyholderID
+        WHERE po.PolicyType = p_PolicyType
+    )
+    LOOP
+        DBMS_OUTPUT.PUT_LINE('Policyholder ID: ' || policyholder_row.PolicyholderID);
+        DBMS_OUTPUT.PUT_LINE('Name: ' || policyholder_row.FirstName || ' ' || policyholder_row.LastName);
+        DBMS_OUTPUT.PUT_LINE('Date of Birth: ' || TO_CHAR(policyholder_row.DateOfBirth, 'YYYY-MM-DD'));
+        DBMS_OUTPUT.PUT_LINE('Email: ' || policyholder_row.Email);
+        DBMS_OUTPUT.PUT_LINE('Phone: ' || policyholder_row.Phone);
+    END LOOP;
+END;
+/
+
+
+Explanation:
+- This procedure takes a `PolicyType` as input and calculates the total coverage amount for policies of that type.
+- It displays the policy type and the total coverage amount.
+- It then retrieves the policyholders and their details for the given policy type.
+- The procedure uses `DBMS_OUTPUT.PUT_LINE` to print the results.
+
+To execute the procedure and get the summary for a specific policy type, you can use the following SQL query:
+
+
+BEGIN
+    GetPolicyTypeSummary('LIC SIIP'); -- Replace with the desired PolicyType
+END;
+/
+
+
+Question:
+How can we create a procedure in Oracle SQL to calculate the total coverage amount and retrieve policyholder details for a specific policy type, based on the provided PolicyType, to help analyze coverage and policyholder data for an LIC company?

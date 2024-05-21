@@ -1,0 +1,34 @@
+
+Function: Get Policyholder Information
+
+Explanation: This function retrieves information about a policyholder based on their PolicyholderID. It returns the policyholder's full name, date of birth, email, and phone number.
+
+CREATE FUNCTION GetPolicyholderInformation(
+    policyholderID INT
+)
+RETURNS TABLE (
+    FullName VARCHAR(100),
+    DateOfBirth DATE,
+    Email VARCHAR(100),
+    Phone VARCHAR(15)
+)
+AS 
+BEGIN
+    RETURN QUERY SELECT CONCAT(FirstName, ' ', LastName), DateOfBirth, Email, Phone
+                 FROM Policyholder
+                 WHERE PolicyholderID = policyholderID;
+END;
+
+Question: "Can you provide the full name, date of birth, email, and phone number of the policyholder with PolicyholderID 3?"
+
+This function allows LIC to easily retrieve essential information about a policyholder by specifying their unique PolicyholderID, which can be helpful for customer support and policy management.
+
+
+
+
+
+
+
+
+
+

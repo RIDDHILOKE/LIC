@@ -1,0 +1,135 @@
+-- Create Policyholder table
+
+
+CREATE TABLE Policyholder (
+    PolicyholderID INT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    DateOfBirth DATE,
+    Gender VARCHAR(10),
+    Email VARCHAR(100),
+    Phone VARCHAR(15),
+    Age VARCHAR(5)
+);
+
+
+CREATE TABLE PolicyholderAddress (
+    AddressID INT PRIMARY KEY,
+    PolicyholderID INT, 
+    StreetAddress VARCHAR(255),
+    City VARCHAR(100),
+    State VARCHAR(50),
+    Pincode VARCHAR(20),
+    Country VARCHAR(100),
+    FOREIGN KEY (PolicyholderID) REFERENCES Policyholder(PolicyholderID)
+);
+
+
+
+  
+
+
+
+-- Create Policy table
+
+
+CREATE TABLE Policy (
+    PolicyNumber INT PRIMARY KEY,
+    PolicyType VARCHAR(50),
+    PremiumAmount DECIMAL(10, 2),
+    CoverageAmount DECIMAL(12, 2),
+    PolicyStartDate DATE,
+    PolicyEndDate DATE
+);
+
+
+
+
+
+
+
+-- Create Agent table
+
+
+CREATE TABLE Agent (
+    AgentID INT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    DateOfBirth DATE,
+    Email VARCHAR(100),
+    Phone VARCHAR(15)
+);
+
+CREATE TABLE AgentAddress (
+    AddressID INT PRIMARY KEY,
+    AgentID INT,
+    StreetAddress VARCHAR(255),
+    City VARCHAR(100),
+    State VARCHAR(50),
+    Pincode VARCHAR(20),
+    Country VARCHAR(100),    
+    FOREIGN KEY (AgentID) REFERENCES Agent(AgentID)
+);
+
+
+
+
+
+
+
+-- Create Beneficiary table
+
+
+CREATE TABLE Beneficiaryy (
+    BeneficiaryID INT PRIMARY KEY,
+    PolicyholderID INT, 
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    DateOfBirth DATE,
+    RelationshipToPolicyholder VARCHAR(50),
+    PercentageShare DECIMAL(5, 2),
+    FOREIGN KEY (PolicyholderID) REFERENCES Policyholder(PolicyholderID)
+);
+
+
+
+
+
+-- Create Payment table
+
+
+CREATE TABLE Payment (
+    PaymentID INT PRIMARY KEY,
+    PolicyNumber INT,
+    PaymentDate DATE,
+    PaymentAmount DECIMAL(10, 2),
+    PaymentMethod VARCHAR(50),
+    FOREIGN KEY (PolicyNumber) REFERENCES Policy(PolicyNumber)
+);
+
+
+
+
+
+
+
+-- Insert sample data for Policyholder, Agent, and Policy tables
+INSERT INTO Policyholder (PolicyholderID, FirstName, LastName, DateOfBirth, Gender, Address, Email, Phone)
+VALUES
+    (1, 'John', 'Doe', '1980-05-15', 'Male', '123 Main St, Mumbai', 'john.doe@email.com', '1234567890'),
+    (2, 'Jane', 'Smith', '1985-09-20', 'Female', '456 Elm St, Delhi', 'jane.smith@email.com', '9876543210'),
+    -- Add more Policyholders here...
+
+INSERT INTO Agent (AgentID, FirstName, LastName, DateOfBirth, Address, Email, Phone)
+VALUES
+    (101, 'Agent', 'Amit', '1975-02-10', '789 Oak St, Kolkata', 'agent.amit@email.com', '4567890123'),
+    (102, 'Agent', 'Priya', '1988-11-30', '101 Pine St, Mumbai', 'agent.priya@email.com', '9876543210'),
+    -- Add more Agents here...
+
+INSERT INTO Policy (PolicyNumber, PolicyType, PremiumAmount, CoverageAmount, PolicyStartDate, PolicyEndDate)
+VALUES
+    (1001, 'Life Insurance', 10000.00, 500000.00, '2023-01-01', '2033-01-01'),
+    (1002, 'Auto Insurance', 5000.00, 30000.00, '2023-02-15', '2024-02-15'),
+    -- Add more Policies here...
+
+

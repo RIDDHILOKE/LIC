@@ -1,0 +1,270 @@
+-- Create the Policyholder table
+
+
+CREATE TABLE Policyholder (
+    PolicyholderID INT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    DateOfBirth DATE,
+    Gender VARCHAR(10),
+    Address VARCHAR(100),
+    Email VARCHAR(100),
+    Phone VARCHAR(15),
+    Age VARCHAR(5)
+);
+-- Insert data into the Policyholder table
+
+
+INSERT INTO Policyholder VALUES    (181, 'John', 'Doe','15-Feb-1990', 'Male', 'john.doe@example.com', '+91-1234567890', '33'); 
+INSERT INTO Policyholder VALUES    (182, 'Jane', 'Smith', '20-March-1985', 'Female', 'jane.smith@example.com', 9876543210, 38);
+INSERT INTO Policyholder VALUES   (183, 'Amit', 'Patel', '10-Jul-1980', 'Male', 'amit.patel@example.com', 7890123456, 43);
+INSERT INTO Policyholder VALUES    (184, 'Priya', 'Sharma', '25-May-1995', 'Female', 'priya.sharma@example.com', 8765432109, 28);
+INSERT INTO Policyholder VALUES    (185, 'Raj', 'Kumar', '29-Sep -1987', 'Male', 'raj.kumar@example.com', 9988776655, 33);
+INSERT INTO Policyholder VALUES    (186, 'Neha', 'Verma', '12-Feb-1992', 'Female', 'neha.verma@example.com', 7654321098, 29);
+INSERT INTO Policyholder VALUES    (187, 'Sandeep', 'Singh', '05-Dec-1982', 'Male', 'sandeep.singh@example.com', 8765432101, 41);
+INSERT INTO Policyholder VALUES    (188, 'Suman', 'Gupta', '18-Apr-1987', 'Female', 'suman.gupta@example.com', 7890123450, 36);
+INSERT INTO Policyholder VALUES   (189, 'Vivek', 'Rajput', '22-Aug-1998', 'Male', 'vivek.rajput@example.com', 9876543221, 25);
+INSERT INTO Policyholder VALUES    (190, 'Rina', 'Mishra', '07-Nov-1968', 'Female', 'rina.mishra@example.com', 9988776600, 55);
+
+
+
+
+
+
+
+
+
+
+CREATE TABLE PolicyholderAddress (
+    AddressID INT PRIMARY KEY,
+    PolicyholderID INT, 
+    StreetAddress VARCHAR(255),
+    City VARCHAR(100),
+    State VARCHAR(50),
+    Pincode VARCHAR(20),
+    Country VARCHAR(100),
+    FOREIGN KEY (PolicyholderID) REFERENCES Policyholder(PolicyholderID)
+);
+
+-- Insert data into the PolicyholderAddress table
+
+
+INSERT INTO PolicyholderAddress VALUES     (11, 181, '123 Main St', 'Mumbai', 'Maharashtra', 400001, 'India');
+INSERT INTO PolicyholderAddress VALUES    (12, 182, '456 Park Ave', 'New Delhi', 'Delhi', 110001, 'India');
+INSERT INTO PolicyholderAddress VALUES    (13, 183, '789 Hill Rd', 'Bangalore', 'Karnataka', 560001, 'India');
+INSERT INTO PolicyholderAddress VALUES    (14, 184, '101 River Rd', 'Kolkata', 'West Bengal', 700001, 'India');
+INSERT INTO PolicyholderAddress VALUES    (15, 185, '222 Lakeview Dr', 'Chennai', 'Tamil Nadu', 600001, 'India');
+INSERT INTO PolicyholderAddress VALUES    (16, 186, '333 Oak St', 'Hyderabad', 'Telangana', 500001, 'India');
+INSERT INTO PolicyholderAddress VALUES    (17, 187, '444 Pine St', 'Mumbai', 'Maharashtra', 400001, 'India');
+INSERT INTO PolicyholderAddress VALUES    (18, 188, '555 Elm Rd', 'Jaipur', 'Rajasthan', 302001, 'India');
+INSERT INTO PolicyholderAddress VALUES    (19, 189, '666 Birch Ave', 'Ahmedabad', 'Gujarat', 380001, 'India');
+INSERT INTO PolicyholderAddress VALUES    (20, 190, '777 Cedar Rd', 'Lucknow', 'Uttar Pradesh', 226001, 'India');
+
+
+
+
+
+
+
+-- Create the Policyy table
+
+
+CREATE TABLE Policyy (
+    PolicyNumber INT PRIMARY KEY,
+    PolicyholderID INT, 
+    PolicyType VARCHAR(50),
+    PremiumAmount DECIMAL(10, 2),
+    CoverageAmount DECIMAL(12, 2),
+    PolicyStartDate DATE,
+    PolicyEndDate DATE,
+    FOREIGN KEY (PolicyholderID) REFERENCES Policyholder(PolicyholderID)
+);
+
+
+
+-- Insert 10 sample LIC policies
+
+
+INSERT INTO Policyy VALUES	(88761, 181, 'LIC SIIP', 5000.00, 1000000.00, '01-Jan-2023', '01-Jan-2033'); 
+INSERT INTO Policyy VALUES	(88762, 182, 'LIC Jeevan Umang', 7500.00, 1500000.00, '15-Jun-2022', '15-Jun-2047');                                     
+INSERT INTO Policyy VALUES	(88763, 183, 'LIC Bima Jyoti', 3000.00, 600000.00, '10-March-2023', '10-March-2038'); 
+INSERT INTO Policyy VALUES	(88764, 184, 'LIC New Jeevan Shanti', 10000.00, 2000000.00, '20-Feb-2020', '20-Feb-2050');  
+INSERT INTO Policyy VALUES	(88765, 185, 'LIC New Jeevan Amar', 4000.00, 800000.00, '01-Aug-2022', '01-Aug-2042');  
+INSERT INTO Policyy VALUES	(88766, 186, 'LIC Jeevan Labh', 6000.00, 1200000.00, '05-Dec-2021', '05-Dec-2046');
+INSERT INTO Policyy VALUES	(88767, 187, 'LIC New Jeevan Anand', 5500.00, 1100000.00, '15-Oct-2009', '15-Oct-2024');                                
+INSERT INTO Policyy VALUES	(88768, 188, 'LIC New Pension Plus', 7000.00, 294000.00, '30-Apr-2022', '15-Oct-2064');                                         
+INSERT INTO Policyy VALUES	(88769, 189, 'LIC SIIP', 5000.00, 1000000.00, '01-Jan-2023', '01-Jan-2033');                                                            
+INSERT INTO Policyy VALUES	(88770, 190, 'LIC Bima Jyoti', 3000.00, 600000.00, '10-March-2005', '10-March-2024');                                                    
+
+
+
+
+
+
+
+
+
+
+
+
+CREATE TABLE Agent (
+    AgentID INT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    DateOfBirth DATE,
+    Email VARCHAR(100),
+    Phone VARCHAR(15)
+);
+
+
+-- Insert data into the Agent table for LIC company 
+
+
+INSERT INTO Agent VALUES	 (1451, 'Amit', 'Kumar', '10-Feb-1980', 'amit.kumar@lic.com', '+91-9876543210');
+INSERT INTO Agent VALUES    (1452, 'Sneha', 'Verma', '15-May-1985', 'sneha.verma@lic.com', '+91-8765432109');
+INSERT INTO Agent VALUES    (1453, 'Rajesh', 'Sharma', '20-Aug-1990', 'rajesh.sharma@lic.com', '+91-7890123456');
+INSERT INTO Agent VALUES    (1454, 'Neha', 'Singh', '25-Nov-1982', 'neha.singh@lic.com', '+91-9988776655');
+INSERT INTO Agent VALUES    (1455, 'Anil', 'Gupta', '30-Sep-1978', 'anil.gupta@lic.com', '+91-7654321098');
+INSERT INTO Agent VALUES    (1456, 'Ritu', 'Patel', '05-Dec-1975', 'ritu.patel@lic.com', '+91-8765432101');
+INSERT INTO Agent VALUES    (1457, 'Manish', 'Rajput', '18-Apr-1988', 'manish.rajput@lic.com', '+91-7890123450');
+INSERT INTO Agent VALUES    (1458, 'Suman', 'Mishra', '22-March-1972', 'suman.mishra@lic.com', '+91-9876543221');
+INSERT INTO Agent VALUES    (1459, 'Vijay', 'Verma', '07-Jul-1995', 'vijay.verma@lic.com', '+91-9988776600');
+INSERT INTO Agent VALUES    (1460, 'Rina', 'Sharma', '12-Jun1998', 'rina.sharma@lic.com', '+91-8888888888');
+
+
+ 
+
+
+CREATE TABLE AgentAddress (
+    AddressID INT PRIMARY KEY,
+    AgentID INT,
+    StreetAddress VARCHAR(255),
+    City VARCHAR(100),
+    State VARCHAR(50),
+    Pincode VARCHAR(20),
+    Country VARCHAR(100),    
+    FOREIGN KEY (AgentID) REFERENCES Agent(AgentID)
+);  
+
+
+
+
+-- Insert data into the AgentAddress table for LIC company
+
+
+INSERT INTO AgentAddress VALUES    (1, 1451, '123 LIC Asiar St', 'Mumbai', 'Maharashtra', 400001, 'India');
+INSERT INTO AgentAddress VALUES    (2, 1452, '456 LIC Dove Ave', 'New Delhi', 'Delhi', 110001, 'India');
+INSERT INTO AgentAddress VALUES    (3, 1453, '789 LIC Gandhi Rd', 'Bangalore', 'Karnataka', 560001, 'India');
+INSERT INTO AgentAddress VALUES    (4, 1454, '101 LIC Red Rd', 'Kolkata', 'West Bengal', 700001, 'India');
+INSERT INTO AgentAddress VALUES    (5, 1455, '222 LIC Blue Dr', 'Chennai', 'Tamil Nadu', 600001, 'India');
+INSERT INTO AgentAddress VALUES    (6, 1456, '333 LIC Hill View St', 'Hyderabad', 'Telangana', 500001, 'India');
+INSERT INTO AgentAddress VALUES    (7, 1457, '444 LIC Shanivar Peth Rd', 'Pune', 'Maharashtra', 411001, 'India');
+INSERT INTO AgentAddress VALUES    (8, 1458, '555 LIC Diamond Ave', 'Jaipur', 'Rajasthan', 302001, 'India');
+INSERT INTO AgentAddress VALUES    (9, 1459, '666 LIC Hemang Dr', 'Ahmedabad', 'Gujarat', 380001, 'India');
+INSERT INTO AgentAddress VALUES    (10, 1460, '777 LIC Hazrat Mahal Rd', 'Lucknow', 'Uttar Pradesh', 22600, 'India');
+
+
+
+
+
+
+
+
+
+CREATE TABLE Beneficiary (
+    BeneficiaryID INT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    DateOfBirth DATE,
+    RelationshipToPolicyholder VARCHAR(50),
+    PercentageShare DECIMAL(5, 2)
+);
+
+
+
+CREATE TABLE Beneficiary (
+    BeneficiaryID INT PRIMARY KEY,
+    PolicyholderID INT, 
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    DateOfBirth DATE,
+    RelationshipToPolicyholder VARCHAR(50),
+    PercentageShare DECIMAL(5, 2),
+    PolicyNumber INT,
+    FOREIGN KEY (PolicyNumber) REFERENCES Policy(PolicyNumber),
+    FOREIGN KEY (PolicyholderID) REFERENCES Policyholder(PolicyholderID)
+);
+
+
+
+-- Insert data into the Beneficiaryy table for LIC company
+
+INSERT INTO Beneficiary VALUES    (8841, 181, 'Aarav', 'Sharma', '15-Feb-1995', 'Spouse', 50.00, 88761);
+INSERT INTO Beneficiary VALUES    (8842, 182, 'Aditi', 'Verma', '20-May-1990', 'Child', 25.00, 88762);
+INSERT INTO Beneficiary VALUES    (8843, 183, 'Ramesh', 'Patel', '10-Aug-1982', 'Parent', 10.00, 88763);
+INSERT INTO Beneficiary VALUES    (8844, 184, 'Suman', 'Gupta', '25-Nov-1978', 'Sibling', 5.00, 88764);
+INSERT INTO Beneficiary VALUES    (8845, 185, 'Priya', 'Singh', '30-Sep-1993', 'Child', 5.00, 88765);
+INSERT INTO Beneficiary VALUES    (8846, 186, 'Vivek', 'Kumar', '05-Dec-1987', 'Child', 3.00, 88766);
+INSERT INTO Beneficiary VALUES    (8847, 187, 'Rina', 'Rajput', '18-Apr-1998', 'Child', 1.00, 88767);
+INSERT INTO Beneficiary VALUES    (8848, 188, 'Neha', 'Mishra', '22-March-1992', 'Child', 0.50, 88768);
+INSERT INTO Beneficiary VALUES    (8849, 189, 'Anil', 'Verma', '07-Jul-1980', 'Sibling', 0.25, 88769);
+INSERT INTO Beneficiary VALUES    (8850, 190, 'Manish', 'Sharma', '12-Jun-1991', 'Sibling', 0.25, 88770);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CREATE TABLE Payment (
+    PaymentID INT PRIMARY KEY,
+    PolicyNumber INT,
+    PaymentDate DATE,
+    PaymentAmount DECIMAL(10, 2),
+    PaymentMethod VARCHAR(50),
+    FOREIGN KEY (PolicyNumber) REFERENCES Policy(PolicyNumber)
+);
+
+
+
+-- Insert data into the Payment table for LIC company
+
+INSERT INTO Payment VALUES    (1, 88761, '15-Jan-2023', 5000.00, 'Credit Card');
+INSERT INTO Payment VALUES    (2, 88762, '20-Feb-2023', 7500.00, 'Bank Transfer');
+INSERT INTO Payment VALUES    (3, 88763, '10-March-2023', 3000.00, 'Cheque');
+INSERT INTO Payment VALUES    (4, 88764, '05-Apr-2023', 10000.00, 'Cash');
+INSERT INTO Payment VALUES    (5, 88765, '15-May-2023', 4000.00, 'Credit Card');
+INSERT INTO Payment VALUES    (6, 88766, '25-Jun-2023', 6000.00, 'Bank Transfer');
+INSERT INTO Payment VALUES    (7, 88767, '18-Jul-2023', 5500.00, 'Cheque');
+INSERT INTO Payment VALUES    (8, 88768, '22-Aug-2023', 7000.00, 'Cash');
+INSERT INTO Payment VALUES    (9, 88769, '10-Sep-2023', 3200.00, 'Credit Card');
+INSERT INTO Payment VALUES    (10, 88770, '01-Oct-2023', 6000.00, 'Bank Transfer');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
